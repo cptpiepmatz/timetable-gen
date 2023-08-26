@@ -1,0 +1,8 @@
+# IDEA
+/.idea
+
+# Cargo output
+/target
+
+# generated output
+out.pdf
