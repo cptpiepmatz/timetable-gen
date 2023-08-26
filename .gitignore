@@ -6,3 +6,6 @@
 
 # generated output
 out.pdf
+
+# personal timetable
+timetable.toml
