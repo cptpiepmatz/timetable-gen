@@ -2,8 +2,11 @@
 name = "timetable-gen"
 version = "0.1.0"
 edition = "2021"
+authors = ["Tim 'Piepmatz' Hesse"]
+publish = false
 
 [dependencies]
+clap = { version = "4", features = ["derive"] }
 genpdf = "0.2"
 serde = { version = "1", features = ["derive"] }
 toml = "0.7"
