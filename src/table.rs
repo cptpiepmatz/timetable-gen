@@ -1,5 +1,5 @@
 use crate::config::{ClassEntry, Config, DayIdentifiers, GridSize};
-use genpdf::elements::{FramedElement, PaddedElement, TableLayout, Text};
+use genpdf::elements::{FramedElement, TableLayout, Text};
 use genpdf::error::Error;
 use genpdf::render::Area;
 use genpdf::style::Style;
@@ -79,7 +79,11 @@ impl Element for TimetableTable {
             let mut row = table.row();
             row.push_element(FramedElement::new(IndexCell {
                 index: i + 1,
-                text: self.class_durations.get(i).map(ToString::to_string).unwrap_or(String::new()),
+                text: self
+                    .class_durations
+                    .get(i)
+                    .map(ToString::to_string)
+                    .unwrap_or(String::new()),
                 height: row_height,
             }));
 
@@ -94,7 +98,7 @@ impl Element for TimetableTable {
                     teacher,
                     room,
 
-                    height: row_height
+                    height: row_height,
                 }));
             }
 
@@ -152,7 +156,10 @@ impl Element for IndexCell {
         let index_font_size: u8 = 30;
         let text_font_size: u8 = 10;
 
-        let index_style = Style::new().with_font_size(index_font_size).bold().and(style);
+        let index_style = Style::new()
+            .with_font_size(index_font_size)
+            .bold()
+            .and(style);
         let text_style = Style::new().with_font_size(text_font_size).and(style);
 
         let index_width = index_style.str_width(font_cache, &self.index.to_string());
@@ -163,8 +170,18 @@ impl Element for IndexCell {
 
         let index_line_height = index_style.line_height(font_cache);
         let text_line_height = text_style.line_height(font_cache);
-        area.print_str(font_cache, (index_start, self.height / 2.0 - index_line_height * 0.75).into(), index_style, self.index.to_string())?;
-        area.print_str(font_cache, (text_start, self.height - (text_line_height * 1.5)).into(), text_style, &self.text)?;
+        area.print_str(
+            font_cache,
+            (index_start, self.height / 2.0 - index_line_height * 0.75).into(),
+            index_style,
+            self.index.to_string(),
+        )?;
+        area.print_str(
+            font_cache,
+            (text_start, self.height - (text_line_height * 1.5)).into(),
+            text_style,
+            &self.text,
+        )?;
 
         Ok(RenderResult {
             size: (area.size().width, self.height).into(),
@@ -179,11 +196,16 @@ struct ClassCell {
     teacher: Option<String>,
     room: Option<String>,
 
-    height: Mm
+    height: Mm,
 }
 
 impl Element for ClassCell {
-    fn render(&mut self, context: &Context, area: Area<'_>, style: Style) -> Result<RenderResult, Error> {
+    fn render(
+        &mut self,
+        context: &Context,
+        area: Area<'_>,
+        style: Style,
+    ) -> Result<RenderResult, Error> {
         let name = self.name.as_ref().map(AsRef::as_ref).unwrap_or("");
         let teacher = self.teacher.as_ref().map(AsRef::as_ref).unwrap_or("");
         let room = self.room.as_ref().map(AsRef::as_ref).unwrap_or("");
@@ -198,11 +220,14 @@ impl Element for ClassCell {
         let mut name_style;
         let mut name_width;
         loop {
-            name_style = Style::new().with_font_size(name_font_size).bold().and(style);
+            name_style = Style::new()
+                .with_font_size(name_font_size)
+                .bold()
+                .and(style);
             name_width = name_style.str_width(font_cache, name);
             match name_width > area.size().width {
                 true => name_font_size -= 1,
-                false => break
+                false => break,
             }
         }
 
@@ -211,9 +236,28 @@ impl Element for ClassCell {
 
         let name_line_height = name_style.line_height(font_cache);
         let bot_line_height = bot_style.line_height(font_cache);
-        area.print_str(font_cache, (name_start, self.height / 2.0 - name_line_height * 0.75).into(), name_style, name)?;
-        area.print_str(font_cache, (2, self.height - (bot_line_height * 1.5)).into(), bot_style, teacher)?;
-        area.print_str(font_cache, (room_start - Mm::from(2.0), self.height - (bot_line_height * 1.5)).into(), bot_style, room)?;
+        area.print_str(
+            font_cache,
+            (name_start, self.height / 2.0 - name_line_height * 0.75).into(),
+            name_style,
+            name,
+        )?;
+        area.print_str(
+            font_cache,
+            (2, self.height - (bot_line_height * 1.5)).into(),
+            bot_style,
+            teacher,
+        )?;
+        area.print_str(
+            font_cache,
+            (
+                room_start - Mm::from(2.0),
+                self.height - (bot_line_height * 1.5),
+            )
+                .into(),
+            bot_style,
+            room,
+        )?;
 
         Ok(RenderResult {
             size: (area.size().width, self.height).into(),

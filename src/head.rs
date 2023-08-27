@@ -1,9 +1,9 @@
 use crate::config::Config;
-use genpdf::elements::{TableLayout, Text};
+use genpdf::elements::TableLayout;
 use genpdf::error::Error;
 use genpdf::render::Area;
 use genpdf::style::Style;
-use genpdf::{Context, Element, Position, RenderResult};
+use genpdf::{Context, Element, RenderResult};
 
 #[derive(Debug, Clone)]
 pub struct TimetableHead {

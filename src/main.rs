@@ -2,11 +2,11 @@ use crate::config::Config;
 use crate::head::TimetableHead;
 use crate::size::A4Landscape;
 use crate::table::TimetableTable;
-use genpdf::elements::{Paragraph, TableLayout, Text};
+
+use clap::Parser;
 use genpdf::{Document, SimplePageDecorator};
 use std::fs;
 use std::path::PathBuf;
-use clap::Parser;
 
 mod config;
 mod font;
@@ -23,7 +23,7 @@ struct Args {
 
     // Path where the output should be generated
     #[arg(short, long, default_value = "timetable.pdf")]
-    out: PathBuf
+    out: PathBuf,
 }
 
 fn main() {
