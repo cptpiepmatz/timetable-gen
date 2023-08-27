@@ -5,8 +5,8 @@
 /target
 
 # generated output
-timetable.pdf
-out.pdf
+/timetable.pdf
+/out.pdf
 
 # personal timetable
 timetable.toml
