@@ -14,6 +14,12 @@ mod head;
 mod size;
 mod table;
 
+/// A command-line tool designed to simplify the creation of timetables.
+///
+/// It takes a configuration file in TOML format as input, processes the given data, and outputs a
+/// neatly organized timetable in PDF format.
+/// The output PDF will be in A4 landscape orientation, with the classes matrix fitted as needed
+/// according to your configuration file.
 #[derive(Debug, Parser)]
 #[command(author, version, about)]
 struct Args {
