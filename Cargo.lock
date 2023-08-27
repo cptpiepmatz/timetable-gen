@@ -452,15 +452,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1ad4cc8da4ef723ed60bced201181d83791ad433213d8c24efffda1eec85d741"
 
 [[package]]
-name = "school-timetable"
-version = "0.1.0"
-dependencies = [
- "genpdf",
- "serde",
- "toml",
-]
-
-[[package]]
 name = "semver"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -666,6 +657,15 @@ dependencies = [
  "quote",
  "standback",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "timetable-gen"
+version = "0.1.0"
+dependencies = [
+ "genpdf",
+ "serde",
+ "toml",
 ]
 
 [[package]]
