@@ -7,6 +7,9 @@ use genpdf::{Context, Element, Mm, RenderResult};
 
 #[derive(Debug, Clone)]
 pub struct TimetableTable {
+    class_room: String,
+    class_teacher: String,
+
     class_durations: Vec<String>,
     day_identifiers: DayIdentifiers,
 
@@ -24,6 +27,9 @@ pub struct TimetableTable {
 impl TimetableTable {
     pub fn new(config: &Config) -> Self {
         TimetableTable {
+            class_room: config.class_room.clone(),
+            class_teacher: config.class_teacher.clone(),
+
             class_durations: config.class_durations.clone(),
             day_identifiers: config.day_identifiers.clone(),
 
@@ -90,8 +96,8 @@ impl Element for TimetableTable {
             for j in 0..self.grid_size.columns {
                 let entry = days.get(j).and_then(|v| v.get(i));
                 let name = entry.and_then(|e| e.class.clone());
-                let teacher = entry.and_then(|e| e.teacher.clone());
-                let room = entry.and_then(|e| e.room.clone());
+                let teacher = entry.and_then(|e| e.teacher.clone()).and_then(|v| v.or(&self.class_teacher));
+                let room = entry.and_then(|e| e.room.clone()).and_then(|v| v.or(&self.class_room));
 
                 row.push_element(FramedElement::new(ClassCell {
                     name,

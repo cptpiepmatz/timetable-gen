@@ -46,8 +46,25 @@ pub struct DayIdentifiers {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ClassEntry {
     pub class: Option<String>,
-    pub teacher: Option<String>,
-    pub room: Option<String>,
+    pub teacher: Option<OrDefault<String>>,
+    pub room: Option<OrDefault<String>>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum OrDefault<T> {
+    Value(T),
+    Default(bool),
+}
+
+impl<T> OrDefault<T> {
+    pub fn or(self, default: impl Into<T>) -> Option<T> {
+        match self {
+            OrDefault::Value(t) => Some(t),
+            OrDefault::Default(true) => Some(default.into()),
+            OrDefault::Default(false) => None
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy)]

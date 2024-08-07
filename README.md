@@ -105,6 +105,11 @@ monday = "Mo"
 class = "Subject 1"
 teacher = "Teacher 1"
 room = "Room 1"
+
+[[monday]]
+class = "Subject 2"
+teacher = true
+room = true
 ...
 ```
 
@@ -121,6 +126,8 @@ room = "Room 1"
   The subjects, teachers, and rooms for each day of the week. 
   Each day is represented as a list of `ClassEntry` objects, all fields are 
   optional.
+  For `teacher` and `room` the values may also be `true`, to use the class 
+  teacher/room.
   - `class`: The subject being taught.
   - `teacher`: The teacher teaching the subject.
   - `room`: The room in which the class is being held.
