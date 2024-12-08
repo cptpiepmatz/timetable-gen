@@ -8,15 +8,13 @@
 
 <br>
 
-<p align="center">
-  <a href="https://github.com/cptpiepmatz/timetable-gen">
-    <!-- make this dynamic when dynamic toml badges drop -->
-    <img alt="Version" src="https://img.shields.io/badge/version-V1.0.0-blue?style=for-the-badge"/>
-  </a>
-  <a href="https://github.com/cptpiepmatz/nu-plugin-highlight/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/crates/l/nu-plugin-highlight?style=for-the-badge"/>  
-  </a>
-</p>
+<div align="center">
+
+  [![Version](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fcptpiepmatz%2Ftimetable-gen%2Frefs%2Fheads%2Fmain%2FCargo.toml&query=package.version&style=for-the-badge&label=version)](https://github.com/cptpiepmatz/timetable-gen)
+  [![License](https://img.shields.io/crates/l/nu-plugin-highlight?style=for-the-badge)](https://github.com/cptpiepmatz/nu-plugin-highlight/blob/main/LICENSE)
+
+</div>
+
 
 ## About
 `timetable-gen` is a command-line tool designed to simplify the creation of 
